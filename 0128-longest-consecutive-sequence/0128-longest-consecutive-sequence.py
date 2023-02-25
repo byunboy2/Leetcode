@@ -9,7 +9,8 @@ class Solution:
         for i in range(1, len(sortedNums)):
             if sortedNums[i] == sortedNums[i-1] + 1:
                 currentCount += 1
+                maxCount = max(currentCount, maxCount)
             else:
                 maxCount = max(currentCount, maxCount)
                 currentCount = 1
-        return max(maxCount,currentCount)
+        return maxCount
