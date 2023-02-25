@@ -12,4 +12,4 @@ class Solution:
             else:
                 maxCount = max(currentCount, maxCount)
                 currentCount = 1
-        return max(currentCount, maxCount)
+        return max(maxCount,currentCount)
