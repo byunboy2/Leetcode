@@ -1,14 +1,12 @@
-/**
- * @param {number} n
- * @return {number}
- */
 var climbStairs = function(n) {
-    let [firstCombination, secondCombination] = [1,1];
-    let thirdCombination = 1;
-    for(let index = n-2 ; 0<=index ; index--){
-        thirdCombination = firstCombination+secondCombination;
-        secondCombination = firstCombination;
-        firstCombination = thirdCombination;
+    if (n == 1) {
+        return 1;
     }
-    return thirdCombination;
+    let [firstPattern, secondPattern, totalCombinations] = [1, 1, 0];
+    for (let index = n - 2; index >= 0; index--) {
+        totalCombinations = firstPattern + secondPattern;
+        firstPattern = secondPattern;
+        secondPattern = totalCombinations;
+    }
+    return totalCombinations;
 };
