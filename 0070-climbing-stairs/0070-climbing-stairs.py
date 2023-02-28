@@ -1,8 +1,15 @@
 class Solution:
     def climbStairs(self, n: int) -> int:
-        total_ways, first_way, second_way= 0,0,1
-        for i in range(n):
-            total_ways = first_way + second_way
-            first_way = second_way
-            second_way = total_ways
-        return total_ways
+        memo = {}
+        return self.climb(n, memo)
+
+    def climb(self, n, memo):
+        if n in memo:
+            return memo[n]
+        if n == 1:
+            memo[n] = 1
+        elif n == 2:
+            memo[n] = 2
+        else:
+            memo[n] = self.climb(n-1, memo) + self.climb(n-2, memo)
+        return memo[n]
