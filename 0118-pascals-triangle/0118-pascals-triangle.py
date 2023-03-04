@@ -1,22 +1,15 @@
 class Solution:
     def generate(self, numRows: int) -> List[List[int]]:
-        pascals_triangle = list()
-        current_row = 1 
+        if numRows == 0:
+            return []
         
-        while current_row <= numRows :
-            current_row_list = list()
-            
-            for i in range(0,current_row):
-                
-                if i == 0 or i == current_row - 1:
-                    current_row_list.append(1)
-                else:
-                     if len(pascals_triangle) > 1 and i < len(pascals_triangle[current_row-2]):
-                        current_row_list.append(pascals_triangle[current_row-2][i]+pascals_triangle[current_row-2][i-1])
-            
-            current_row+=1    
-            
-            pascals_triangle.append(current_row_list)
+        pascals_triangle = [[1]]
+        
+        for i in range(1, numRows):
+            current_row = [1]
+            for j in range(1, i):
+                current_row.append(pascals_triangle[i-1][j] + pascals_triangle[i-1][j-1])
+            current_row.append(1)
+            pascals_triangle.append(current_row)
             
         return pascals_triangle
-    
