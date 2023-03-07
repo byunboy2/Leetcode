@@ -3,20 +3,22 @@ class Solution:
         n = len(s)
         if n == 0:
             return ""
+        
         start, end = 0, 0
+        
+        dp = [[False] * n for _ in range(n)]
+ 
         for i in range(n):
-            # check odd length palindromes centered at i
-            left, right = i, i
-            while left >= 0 and right < n and s[left] == s[right]:
-                if right - left > end - start:
-                    start, end = left, right
-                left -= 1
-                right += 1
-            # check even length palindromes centered at i and i+1
-            left, right = i, i+1
-            while left >= 0 and right < n and s[left] == s[right]:
-                if right - left > end - start:
-                    start, end = left, right
-                left -= 1
-                right += 1
+            dp[i][i] = True
+            start, end = i, i
+        
+    
+        for i in range(n-1, -1, -1):
+            for j in range(i+1, n):
+                if s[i] == s[j]:
+                    if j - i == 1 or dp[i+1][j-1]:
+                        dp[i][j] = True
+                        if j - i > end - start:
+                            start, end = i, j
+                            
         return s[start:end+1]
