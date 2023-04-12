@@ -1,9 +1,9 @@
-SELECT d.name AS Department, e.name AS Employee, e.salary AS Salary
-FROM Employee e
-INNER JOIN Department d ON e.departmentId = d.id
-WHERE (
-    SELECT COUNT(DISTINCT salary)
-    FROM Employee e2
-    WHERE e2.salary >= e.salary AND e2.departmentId = e.departmentId
-) <= 3
-ORDER BY Department, Salary DESC;
+select d.name as Department, e.name as Employee, e.salary as Salary 
+from Employee e
+inner join Department d on d.id = e.departmentId
+where (
+select count(distinct(salary))
+    from Employee e1 
+    where e1.salary >= e.salary and e1.departmentId=e.departmentId
+) <=3
+order by Department, Salary desc
