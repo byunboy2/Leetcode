@@ -11,17 +11,17 @@ var evalRPN = function(tokens) {
             let b = stack.pop();
             stack.push(b+a);
         }
-        else if(current === "-"){
+         else if(current === "-"){
             let a = stack.pop();
             let b = stack.pop();
             stack.push(b-a);
         }
-        else if(current === "*"){
+         else if(current === "*"){
             let a = stack.pop();
             let b = stack.pop();
             stack.push(b*a);
         }
-        else if(current === "/"){
+         else if(current === "/"){
             let a = stack.pop();
             let b = stack.pop();
             stack.push(parseInt(b/a));
@@ -30,5 +30,5 @@ var evalRPN = function(tokens) {
             stack.push(parseInt(current));
         }
     }
-    return stack.pop();
+    return stack[0];
 };
