@@ -3,11 +3,7 @@ var generateParenthesis = function(n) {
     let res = [];
 
     function backtrack(openN, closedN) {
-        if (openN === closedN && openN === n) {
-            res.push(stack.join(''));
-            return;
-        }
-
+    
         if (openN < n) {
             stack.push('(');
             backtrack(openN + 1, closedN);
@@ -19,6 +15,11 @@ var generateParenthesis = function(n) {
             backtrack(openN, closedN + 1);
             stack.pop();
         }
+          if (openN === closedN && openN === n) {
+            res.push(stack.join(''));
+            return;
+        }
+
     }
 
     backtrack(0, 0);
