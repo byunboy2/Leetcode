@@ -7,17 +7,13 @@ var evalRPN = function(tokens) {
     for(let i = 0; i<tokens.length; i++){
         let current = tokens[i];
         if(current === "+"){
-            let a = stack.pop();
-            let b = stack.pop();
-            stack.push(b+a);
+            stack.push(stack.pop()+stack.pop());
            } else if(current === "-"){
             let a = stack.pop();
             let b = stack.pop();
             stack.push(b-a);
            } else if(current === "*"){
-            let a = stack.pop();
-            let b = stack.pop();
-            stack.push(b*a);
+            stack.push(stack.pop()*stack.pop());
            } else if(current === "/"){
             let a = stack.pop();
             let b = stack.pop();
