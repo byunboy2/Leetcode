@@ -1,27 +1,27 @@
 var generateParenthesis = function(n) {
-    let stack = [];
-    let res = [];
+  let result = [];
+  let stack = [];
 
-    function backtrack(openN, closedN) {
-    
-        if (openN < n) {
-            stack.push('(');
-            backtrack(openN + 1, closedN);
-            stack.pop();
-        }
-
-        if (closedN < openN) {
-            stack.push(')');
-            backtrack(openN, closedN + 1);
-            stack.pop();
-        }
-          if (openN === closedN && openN === n) {
-            res.push(stack.join(''));
-            return;
-        }
-
+  let generatePossibleCombinations = function(start, end) {
+    if (start === n && end === n) {
+      result.push(stack.join(''));
+      return;
     }
 
-    backtrack(0, 0);
-    return res;
+    if (start < n) {
+      stack.push('(');
+      generatePossibleCombinations(start + 1, end);
+      stack.pop();
+    }
+
+    if (end < start) {
+      stack.push(')');
+      generatePossibleCombinations(start, end + 1);
+      stack.pop();
+    }
+  };
+
+  generatePossibleCombinations(0, 0);
+  return result;
 };
+
