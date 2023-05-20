@@ -1,25 +1,25 @@
-/**
- * @param {string} s
- * @return {string}
- */
-var longestPalindrome = function(s) {
-    const length = s.length;
-    const dp = new Array(length).fill(false);
-    let start = 0;
-    let end = 0;
-    
-    for(let right = 0; right<length ; right++){
-        for(let left = 0 ; left<=right; left++){
-            if(s[left]===s[right] && (right-left<2 || dp[left+1])){
-                dp[left] = true;
-                if(right-left>=end-start){
-                    start = left;
-                    end = right;
-                }
-            } else {
-                dp[left] = false; 
-            }
-        }
+function longestPalindrome(s) {
+  let res = '';
+  let resLen = 0;
+
+  function expandAroundCenter(left, right) {
+    while (left >= 0 && right < s.length && s[left] === s[right]) {
+      if (right - left + 1 > resLen) {
+        res = s.slice(left, right + 1);
+        resLen = right - left + 1;
+      }
+      left--;
+      right++;
     }
-    return s.slice(start, end+1);
-};
+  }
+
+  for (let i = 0; i < s.length; i++) {
+    // odd length
+    expandAroundCenter(i, i);
+
+    // even length
+    expandAroundCenter(i, i + 1);
+  }
+
+  return res;
+}
