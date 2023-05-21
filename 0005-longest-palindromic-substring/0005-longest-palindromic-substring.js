@@ -1,25 +1,32 @@
-function longestPalindrome(s) {
-  let res = '';
-  let resLen = 0;
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var longestPalindrome = function(s) {
+  if (s.length === 0) return "";
+  if (s.length === 1) return s[0];
 
-  function expandAroundCenter(left, right) {
-    while (left >= 0 && right < s.length && s[left] === s[right]) {
-      if (right - left + 1 > resLen) {
-        res = s.slice(left, right + 1);
-        resLen = right - left + 1;
-      }
-      left--;
-      right++;
+  var findPalindrome = function(start, end) {
+    while (start >= 0 && end < s.length && s[start] === s[end]) {
+      start--;
+      end++;
+    }
+    return s.substring(start + 1, end);
+  };
+
+  var evenPalindrome, oddPalindrome;
+  for (let i = 0; i < s.length; i++) {
+    let even = findPalindrome(i, i + 1);
+    let odd = findPalindrome(i, i);
+    if (!evenPalindrome || even.length > evenPalindrome.length) {
+      evenPalindrome = even;
+    }
+    if (!oddPalindrome || odd.length > oddPalindrome.length) {
+      oddPalindrome = odd;
     }
   }
 
-  for (let i = 0; i < s.length; i++) {
-    // odd length
-    expandAroundCenter(i, i);
-
-    // even length
-    expandAroundCenter(i, i + 1);
-  }
-
-  return res;
-}
+  return evenPalindrome.length > oddPalindrome.length
+    ? evenPalindrome
+    : oddPalindrome;
+};
