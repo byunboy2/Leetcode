@@ -1,25 +1,23 @@
-function countSubstrings(s) {
-    const n = s.length;
-    const dp = new Array(n).fill(0);
-    let count = 0;
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var countSubstrings = function(s) {
+    let totalPalindromes = 0;
     
-    for(let i=n-1; i>=0; i--){
-        for(let j=n-1; j>=i; j--){
-            if(s[i] === s[j]){
-                if(j-i < 2){
-                    dp[j] = 1;
-                }
-                else{
-                    dp[j] = dp[j-1];
-                }
-                count += dp[j];
-            }
-            else{
-                dp[j] = 0;
-            }
+    var countPalindromes = function(left,right){
+        let total=0;
+        while(left>=0 && right<s.length && s[left]===s[right]){
+            left--;
+            right++;
+            total++;
         }
+        return total;
     }
-    return count;
-}
+    for(let i = 0 ; i<s.length;i++){
+        totalPalindromes+=countPalindromes(i,i);
+        totalPalindromes+=countPalindromes(i,i+1);
+    };
 
-
+    return totalPalindromes;
+};
