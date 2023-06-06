@@ -7,14 +7,9 @@ public class Solution {
                 dp[i] = 0;
             else 
                 dp[i] = dp[i + 1];
-
-            if (i + 1 < s.Length && (
-                s[i] == '1' || 
-                (s[i] == '2' && "0123456".Contains(s[i + 1]))
-            ))
+            if (i + 1 < s.Length && (s[i] == '1' ||  s[i] == '2' && "0123456".Contains(s[i + 1])))
                 dp[i] += dp[i + 2];
         }
-        
         return dp[0];
     }
 }
