@@ -1,19 +1,25 @@
-public class Solution {
-    public int Rob(int[] nums) {
-        if(nums.Length == 1) return nums[0];
-        return Math.Max(Helper(nums, 0, nums.Length-1), Helper(nums, 1, nums.Length));
+using System;
+using System.Collections.Generic;
+
+public class Solution
+{
+    public int Rob(int[] nums)
+    {
+        return Math.Max(nums[0], Math.Max(Helper(nums[1..]), Helper(nums[..^1])));
+
     }
-    
-    public int Helper(int[] nums, int start, int end) {
-        List<int> dp = Enumerable.Repeat(0, nums.Length+2).ToList();
-        
-        for (int i = start; i < end; i++) {
-            int curr = nums[i];
-            
-            // Calculate the maximum amount that can be robbed
-            dp[i+2] = Math.Max(dp[i+1], dp[i] + curr);
+
+    public int Helper(int[] nums)
+    {
+        int rob1 = 0;
+        int rob2 = 0;
+
+        foreach (int n in nums)
+        {
+            int newRob = Math.Max(rob1 + n, rob2);
+            rob1 = rob2;
+            rob2 = newRob;
         }
-        
-        return dp[end+1];
+        return rob2;
     }
 }
